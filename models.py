@@ -1,6 +1,7 @@
+import datetime
 from sqlalchemy import UniqueConstraint, create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
-from sqlalchemy import Column, String, Integer, ForeignKey
+from sqlalchemy import Column, String, Integer, ForeignKey, DateTime
 
 
 SQLALCHEMY_DATABASE_URL = 'sqlite+pysqlite:///./db.sqlite3'
@@ -17,38 +18,39 @@ def get_db():
         db.close()
 
 
-class DBBlog(Base):
+class EntityBase:
+    id = Column(Integer, primary_key=True, nullable=False)
+    created_date = Column(DateTime, default=datetime.datetime.utcnow)
+
+
+class DBBlog(Base, EntityBase):
     __tablename__ = 'blogs'
 
-    id = Column(Integer, primary_key=True, index=True)
     title = Column(String(50))
     description = Column(String, nullable=True)
 
 
-class DBUser(Base):
+class DBUser(Base, EntityBase):
     __tablename__ = 'users'
 
-    id = Column(Integer, primary_key=True, index=True)
     first_name = Column(String(50))
     last_name = Column(String(50))
     username = Column(String(50), unique=True)
 
 
-class DBLikes(Base):
+class DBLikes(Base, EntityBase):
     __tablename__ = 'likes'
     __table_args__ = (
         UniqueConstraint('blog_id', 'user_id', name='unique_user_blog'),
     )
 
-    id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     blog_id = Column(Integer, ForeignKey("blogs.id"), nullable=False)
 
 
-class DBComment(Base):
+class DBComment(Base, EntityBase):
     __tablename__ = 'comments'
 
-    id = Column(Integer, primary_key=True, index=True)
     description = Column(String)
     parent_id = Column(Integer, ForeignKey("comments.id"), nullable=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
