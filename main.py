@@ -1,57 +1,69 @@
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, Request, APIRouter
+from fastapi.templating import Jinja2Templates
 from typing import List
 from sqlalchemy.orm import Session
 import managers
+from pathlib import Path
 from models import get_db
 from schema import Blog, User, Comment
+from fastapi.staticfiles import StaticFiles
 
+BASE_PATH = Path(__file__).resolve().parent
+TEMPLATES = Jinja2Templates(directory=str(BASE_PATH / "template"))
 
 app = FastAPI()
+api_router = APIRouter()
 
+app.mount("/assets", StaticFiles(directory=str(BASE_PATH / "template/assets")), name="assets")
 
-@app.post('/blogs/', response_model=Blog)
+@api_router.post('/blogs/create', response_model=Blog)
 async def create_blogs_view(blog: Blog, db: Session = Depends(get_db)):
     db_blog = managers.create_blog(db, blog)
     return db_blog
 
 
-@app.get('/blogs/', response_model=List[Blog])
-async def get_blogs_view(db: Session = Depends(get_db)):
-    return managers.get_blogs(db)
+@api_router.get('/blogs/', response_model=List[Blog], name="blogs")
+async def get_blogs_view(request: Request, db: Session = Depends(get_db)) -> dict:
+    blogs = managers.get_blogs(db)
+    return TEMPLATES.TemplateResponse(
+        "blog.html", {"request":request, "blogs":blogs}
+        )
 
 
-@app.get('/blogs/{blog_id}')
+@api_router.get('/blogs/{blog_id}')
 async def get_blog_view(blog_id: int, db: Session = Depends(get_db)):
     return managers.get_blog(db, blog_id)
 
 
-@app.get('/comments/{comment_id}')
+@api_router.get('/comments/{comment_id}')
 async def get_comment_view(comment_id: int, db: Session = Depends(get_db)):
     return managers.get_comment(db, comment_id)
 
 
-@app.get('/comments/', response_model=List[Comment])
+@api_router.get('/comments/', response_model=List[Comment])
 async def get_comments_view(db: Session = Depends(get_db)):
     return managers.get_comments(db)
 
 
-@app.post('/comments/', response_model=Comment)
+@api_router.post('/comments/', response_model=Comment)
 async def create_comment_view(comment: Comment, db: Session = Depends(get_db)):
     db_comment = managers.create_comment(db, comment)
     return db_comment
 
 
-@app.post('/users/', response_model=User)
+@api_router.post('/users/', response_model=User)
 async def create_user_view(user: User, db: Session = Depends(get_db)):
     db_user = managers.create_user(db, user)
     return db_user
 
 
-@app.get('/users/', response_model=List[User])
+@api_router.get('/users/', response_model=List[User])
 async def get_users_view(db: Session = Depends(get_db)):
     return managers.get_users
 
 
-@app.get('/users/{user_id}')
+@api_router.get('/users/{user_id}')
 async def get_user_view(user_id: int, db: Session = Depends(get_db)):
     return managers.get_user(db, user_id)
+
+app.include_router(api_router)

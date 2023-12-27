@@ -4,12 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-fastapi = "*"
 pydantic = "*"
+jinja2 = "*"
+fastapi = "*"
 sqlalchemy = "*"
 uvicorn = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.6"
+python_version = "3.9"
