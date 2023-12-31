@@ -25,8 +25,9 @@ async def create_blogs_view(blog: Blog, db: Session = Depends(get_db)):
 @api_router.get('/blogs/', response_model=List[Blog], name="blogs")
 async def get_blogs_view(request: Request, db: Session = Depends(get_db)) -> dict:
     blogs = managers.get_blogs(db)
+    path = "blogs"
     return TEMPLATES.TemplateResponse(
-        "blog.html", {"request":request, "blogs":blogs}
+        "blog.html", {"request":request, "blogs":blogs, "path":path}
         )
 
 

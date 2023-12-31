@@ -1,6 +1,23 @@
 
 <body>
     {% include 'header.html' %}
+
+         <!--  ************************* Page Title Starts Here ************************** -->
+         <div class="page-nav no-margin row">
+            <div class="container">
+                <div class="row">
+                    {% if path == "blogs" %}
+                    <h2>مقالات</h2>
+                    <ul>
+                        <li> <a href="#"><i class="fas fa-home"></i> خانه</a></li>
+                        <li><i class="fas fa-angle-double-right"></i>مقالات</li>
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    <!-- ######## Page  Title End ####### -->
        <section class="our-blog container-fluid">
   		<div class="container">
   			<div class="col-sm-12 blog-cont">
