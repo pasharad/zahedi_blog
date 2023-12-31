@@ -1,7 +1,7 @@
 import datetime
-from sqlalchemy import UniqueConstraint, create_engine
-from sqlalchemy.orm import declarative_base, sessionmaker
-from sqlalchemy import Column, String, Integer, ForeignKey, DateTime
+from sqlalchemy import UniqueConstraint, create_engine, event
+from sqlalchemy.orm import declarative_base, sessionmaker, relationship
+from sqlalchemy import Column, String, Integer, Boolean, DateTime, ForeignKey
 
 
 SQLALCHEMY_DATABASE_URL = 'sqlite+pysqlite:///./db.sqlite3'
@@ -28,6 +28,26 @@ class DBBlog(Base, EntityBase):
 
     title = Column(String(50))
     description = Column(String, nullable=True)
+
+
+class DBAboutUs(Base, EntityBase):
+    __tablename__ = 'about-us'
+
+    description = Column(String(500))
+    our_vision = Column(String(500))
+    our_mission = Column(String(500))
+    why_choose_us = Column(String(500))
+    status = Column(Boolean, default=True)
+
+    @staticmethod
+    def on_insert(mapper, connection, target):
+        connection.execute(DBAboutUs.__table__.update().where(
+            DBAboutUs.__table__.c.id != target.id
+        ).values(status=False))
+
+event.listen(DBAboutUs, 'after_insert', DBAboutUs.on_insert)
+
+
 
 
 class DBUser(Base, EntityBase):

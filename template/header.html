@@ -1,47 +1,32 @@
-<!doctype html>
-<html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> Free Medical Hospital Website Template | Smarteyeapps.com</title>
-    <link rel="shortcut icon" href="{{ url_for('assets', path='/images/fav.jpg') }}">
-    <link rel="stylesheet" href="{{ url_for('assets', path='/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('assets', path='/css/fontawsom-all.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('assets', path='/css/animate.css') }}">
-    <link rel="stylesheet" href="{{ url_for('assets', path='/plugins/testimonial/css/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('assets', path='/plugins/testimonial/css/owl.theme.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('assets', path='/css/style.css') }}" />
-</head>
+
+{% include 'head.html' %}
 
 
     <!-- ################# Header Starts Here#######################--->
 
-<body>
-    <header id="menu-jk">
-        <nav id="menu" class="">
-            <div class="container">
-                <div class="row nav-ro">
-                   <div class="col-lg-3 col-md-4 col-sm-12">
-                       <img src="assets/images/logo.jpg" alt="">
-                        <a data-toggle="collapse" data-target="#menu" href="#menu"><i class="fas d-block d-md-none small-menu fa-bars"></i></a>
-                   </div>
-                   <div class="col-lg-7 col-md-8 d-none d-md-block no-padding">
-                       <ul>
-                            <li><a href="index.html"> تماس با ما </a></li>
-                            <li><a href="about_us.html"> مقالات </a></li>
-                            <li><a href="services.html">خدمات</a></li>
-                            <li><a href="{{ url_for('blogs') }}">درباره ما </a></li>
-                            <li><a href="contact_us.html"> خانه </a></li>
-                        </ul>
-                   </div>
-                   <div class="col-sm-2 d-none d-lg-block">
-                       <button class="btn btn-success">دریافت نوبت</button>
-                   </div>
+<header id="menu-jk">
+    <nav id="menu" class="">
+        <div class="container">
+            <div class="row nav-ro">
+                <div class="col-lg-3 col-md-4 col-sm-12">
+                    <img src="assets/images/logo.jpg" alt="">
+                    <a data-toggle="collapse" data-target="#menu" href="#menu"><i class="fas d-block d-md-none small-menu fa-bars"></i></a>
+                </div>
+                <div class="col-lg-7 col-md-8 d-none d-md-block no-padding">
+                    <ul>
+                        <li><a href="index.html"> تماس با ما </a></li>
+                        <li><a href="about_us.html"> مقالات </a></li>
+                        <li><a href="services.html">خدمات</a></li>
+                        <li><a href="{{ url_for('blogs') }}">درباره ما </a></li>
+                        <li><a href="contact_us.html"> خانه </a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-2 d-none d-lg-block">
+                    <button class="btn btn-success">دریافت نوبت</button>
                 </div>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
     
-
-</body>

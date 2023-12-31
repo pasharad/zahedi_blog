@@ -10,6 +10,16 @@ class Blog(BaseModel):
         from_attributes = True
 
 
+class AboutUs(BaseModel):
+    description: str
+    our_vision: str
+    our_mission: str
+    why_choose_us:  str
+
+    class Config:
+        from_attributes = True
+
+
 class User(BaseModel):
     first_name: str
     last_name: str

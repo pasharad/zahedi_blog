@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from models import DBBlog, DBUser, DBComment
-from schema import Blog, User, Comment
+from models import DBBlog, DBUser, DBComment, DBAboutUs
+from schema import Blog, User, Comment, AboutUs
 
 
 def get_blog(db: Session, blog_id: int):
@@ -18,6 +18,19 @@ def create_blog(db: Session, blog: Blog):
     db.refresh(db_blog)
 
     return db_blog
+
+
+def get_about_us(db: Session):
+    return db.query(DBAboutUsSelector).first()
+
+
+def create_about_us(db: Session, about_us: AboutUs):
+    db_about_us = DBAboutUs(**about_us.model_dump())
+    db.add(db_about_us)
+    db.commit()
+    db.refresh(db_about_us)
+
+    return db_about_us
 
 
 def create_user(db: Session, user: User):

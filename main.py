@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 import managers
 from pathlib import Path
 from models import get_db
-from schema import Blog, User, Comment
+from schema import Blog, User, Comment, AboutUs
 from fastapi.staticfiles import StaticFiles
 
 BASE_PATH = Path(__file__).resolve().parent
@@ -66,5 +66,17 @@ async def get_users_view(db: Session = Depends(get_db)):
 @api_router.get('/users/{user_id}')
 async def get_user_view(user_id: int, db: Session = Depends(get_db)):
     return managers.get_user(db, user_id)
+
+
+@api_router.get('/about-us/', name="about-us")
+async def get_blogs_view(request: Request, db: Session = Depends(get_db)) -> dict:
+
+    return TEMPLATES.TemplateResponse(
+        "about_us.html", {"request":request}
+        )
+@api_router.post("/about-us/", name="about-us-craete")
+async def create_about_us(about: AboutUs, db: Session = Depends(get_db)):
+    db_about_us = managers.create_about_us(db, about)
+    return db_about_us
 
 app.include_router(api_router)
