@@ -20,10 +20,6 @@ def create_blog(db: Session, blog: Blog):
     return db_blog
 
 
-def get_about_us(db: Session):
-    return db.query(DBAboutUsSelector).first()
-
-
 def create_about_us(db: Session, about_us: AboutUs):
     db_about_us = DBAboutUs(**about_us.model_dump())
     db.add(db_about_us)
@@ -32,6 +28,13 @@ def create_about_us(db: Session, about_us: AboutUs):
 
     return db_about_us
 
+
+def select_about_us(db: Session):
+    return db.query(DBAboutUs).all()
+
+
+def get_about_us(db: Session):
+    return db.query(DBAboutUs).where(DBAboutUs.status == True)
 
 def create_user(db: Session, user: User):
     db_user = DBUser(**user.model_dump())

@@ -1,42 +1,19 @@
 
 <body>
+    <!-- ################# Header Starts Here#######################--->
     {% include 'header.html' %}
-       <!-- ################# Header Starts Here#######################--->
-
-    <header id="menu-jk">
-        <nav id="menu" class="">
-            <div class="container">
-                <div class="row nav-ro">
-                   <div class="col-lg-3 col-md-4 col-sm-12">
-                       <img src="assets/images/logo.jpg" alt="">
-                        <a data-toggle="collapse" data-target="#menu" href="#menu"><i class="fas d-block d-md-none small-menu fa-bars"></i></a>
-                   </div>
-                   <div class="col-lg-7 col-md-8 d-none d-md-block no-padding">
-                       <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="about_us.html">About Us</a></li>
-                            <li><a href="services.html">Services</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="gallery.html">Gallery</a></li>
-                            <li><a href="contact_us.html">Contact Us</a></li>
-                        </ul>
-                   </div>
-                   <div class="col-sm-2 d-none d-lg-block">
-                       <button class="btn btn-success">Book an Appointment</button>
-                   </div>
-                </div>
-            </div>
-        </nav>
-    </header>
+    
      <!--  ************************* Page Title Starts Here ************************** -->
                <div class="page-nav no-margin row">
                    <div class="container">
                        <div class="row">
-                           <h2>About Spinta Clinic</h2>
+                        {% if path == "about-us" %}
+                           <h2>درباره کلینیک مشاوره زاهدی</h2>
                            <ul>
-                               <li> <a href="#"><i class="fas fa-home"></i> Home</a></li>
-                               <li><i class="fas fa-angle-double-right"></i> About Us</li>
+                               <li> <a href="#"><i class="fas fa-home"></i> خانه </a></li>
+                               <li><i class="fas fa-angle-double-right"></i>  درباره ما </li>
                            </ul>
+                        {% endif %}
                        </div>
                    </div>
                </div>
@@ -48,14 +25,13 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
-                            <img src="assets/images/aboout.jpg" alt="">
+                            <img src="{{ url_for('assets', path='/images/aboout.jpg') }}" alt="">
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <h2>Welcome to  Spinta  Clinic</h2>
-                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius eros consequat auctor gravida. Fusce tristique lacus at urna sollicitudin pulvinar. Suspendisse hendrerit ultrices mauris.Fusce tristique lacus at urna sollicitudin pulvinar. Suspendisse hendrerit ultrices mauris.</p>
-                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius eros consequat auctor gravida. Fusce tristique lacus at urna sollicitudin pulvinar. Suspendisse hendrerit ultrices mauris.Fusce tristique lacus at urna sollicitudin pulvinar. Suspendisse hendrerit ultrices mauris.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius eros consequat auctor gravida. Fusce tristique lacus at urna sollicitudin pulvinar. Suspendisse hendrerit ultrices mauris.Fusce tristique lacus at urna sollicitudin pulvinar. Suspendisse hendrerit ultrices mauris.</p>
-                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius eros consequat auctor consectetur adipiscing elit. Nam varius eros consequat auctorconsectetur adipiscing elit. Nam varius eros consequat auctor gravida. Fusce tristique lacus at urna sollicitudin pulvinar. Suspendisse hendrerit ultrices mauris.Fusce tristique lacus at urna  adipiscing  </p>
-                            
+                            {% for about in about_us %}
+                            <h2>به کلینیک زاهدی خوش آمدید</h2>
+                            <p> {{ about.description }} </p>
+                            {% endfor %}
                         </div>
                     </div>
                     
@@ -70,29 +46,28 @@
   	        <div class="row">
   	            <div class="col-lg-4 col-md-12">
   	                <div class="single-dd">
-  	                    <h4>Our Mission</h4>
-  	                    <p>Lorem Ipsum is simply text of the Lorem Ipsum is simply my text of the printing and Ipsum is simply text of the Ipsum is simply text of thetypesetting Ipsum is simply text of the stry simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply text of the Lorem Ipsum is simply my text of </p>
-  	                    
-  	                    
-  	                </div>
-  	            </div>
-  	            <div class="col-lg-4 col-md-12">
-  	                 <div class="single-dd">
-  	                    <h4>Our Vision</h4>
-  	                    <p>Lorem Ipsum is simply text of the Lorem Ipsum is simply my text of ply text of the Ipsum is simply text of thetypesetting Ipsum is simply text of the stry simply <br>dummy text of the printing and typesetting industry. Lorem Ipsum is simply text of the Lorem Ipsum is simply my text of </p>
-  	                    
+                        {% for about in about_us %}
+  	                    <h4>وظایف ما</h4>
+  	                    <p> {{about.our_mission}} </p>
+  	                    {% endfor %}
   	                    
   	                </div>
   	            </div>
   	            <div class="col-lg-4 col-md-12">
   	                 <div class="single-dd">
-  	                    <h4>Why Choos Us ?</h4>
-  	                    <p>Effective Psychological Therapy with a minimum of 5 years post qualification experience. </p>
+                        {% for about in about_us %}
+  	                    <h4>اهداف ما</h4>
+  	                    <p> {{about.our_vision}} </p>
+  	                    {% endfor %}
   	                    
-  	                    <p>Ipsum is simply text of the Lorem Ipsum is simply my text of ply text</p>
-  	                    
-  	                    <p>Lorem Ipsum is simply text of the Lorem Ipsum is simply my text of ply text of the Ipsum f the Lorem Ipsum is simply my text of ply text </p>
-  	                    
+  	                </div>
+  	            </div>
+  	            <div class="col-lg-4 col-md-12">
+  	                 <div class="single-dd">
+                        {% for about in about_us %}
+  	                    <h4>چرا کلینیک ما؟</h4>
+  	                    <p> {{about.why_choose_us}} </p>
+  	                    {% endfor %}
   	                    
   	                </div>
   	            </div>
@@ -156,13 +131,13 @@
         </div>
 </body>
 
-
-<script src="assets/js/jquery-3.2.1.min.js"></script>
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/plugins/scroll-fixed/jquery-scrolltofixed-min.js"></script>
-<script src="assets/plugins/testimonial/js/owl.carousel.min.js"></script>
-<script src="assets/js/script.js"></script>
+{{ url_for('assets', path='/js/script.js') }}
+<script src="{{ url_for('assets', path='/js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ url_for('assets', path='/js/popper.min.js') }}"></script>
+<script src="{{ url_for('assets', path='/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('assets', path='/plugins/scroll-fixed/jquery-scrolltofixed-min.js') }}"></script>
+<script src="{{ url_for('assets', path='/plugins/testimonial/js/owl.carousel.min.js') }}"></script>
+<script src="{{ url_for('assets', path='/js/script.js') }}"></script>
 
 
 </html>

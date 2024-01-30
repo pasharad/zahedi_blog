@@ -69,10 +69,15 @@ async def get_user_view(user_id: int, db: Session = Depends(get_db)):
 
 
 @api_router.get('/about-us/', name="about-us")
-async def get_blogs_view(request: Request, db: Session = Depends(get_db)) -> dict:
-
+async def get_about_us_view(request: Request, db: Session = Depends(get_db)) -> dict:
+    about_us_elements = managers.get_about_us(db)
+    path = "about-us"
     return TEMPLATES.TemplateResponse(
-        "about_us.html", {"request":request}
+        "about_us.html", 
+        {"request":request,
+          "about_us":about_us_elements,
+          "path":path
+          }
         )
 @api_router.post("/about-us/", name="about-us-craete")
 async def create_about_us(about: AboutUs, db: Session = Depends(get_db)):
