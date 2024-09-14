@@ -18,7 +18,7 @@
         </div>
 
     <!-- ######## Page  Title End ####### -->
-       <section class="our-blog container-fluid">
+    <section class="our-blog container-fluid">
   		<div class="container">
   			<div class="col-sm-12 blog-cont">
   				<div class="row no-margin">
@@ -26,14 +26,14 @@
   					<div class="col-sm-6 blog-smk">
 						<div class="blog-single">
 
-								<img src="assets/images/blog/post_1.jpg" alt="">
+							<img src="assets/images/blog/post_1.jpg" alt="">
 
 							<div class="blog-single-det">
 								<span>Nov 12, 2018</span>
 								<h6>{{blog.title}}</h6>
 								<p> {{blog.description[:20]}} </p>
-								<a href="blog_single.html">
-									<button class="btn btn-success btn-sm">More Detail</button>
+								<a href="{{ url_for('single-blog', blog_id=blog.id) }}">
+									<button class="btn btn-success btn-sm">اطلاعات بیشتر</button>
 								</a>
 							</div>
 						</div>

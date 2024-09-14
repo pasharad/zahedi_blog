@@ -1,0 +1,39 @@
+<body>
+    <!-- ################# Header Starts Here#######################--->
+    {% include 'header.html' %}
+    
+    <!--  ************************* Page Title Starts Here ************************** -->
+               <div class="page-nav no-margin row">
+                   <div class="container">
+                       <div class="row">
+                        {% if path == "blog-post" %}
+                           <h2>{{ post.title }}</h2>
+                           <ul>
+                               <li> <a href="#"><i class="fas fa-home"></i> خانه </a></li>
+                               <li> <a href="{{ url_for('blogs') }}"><i class="fas fa-angle-double-right"></i>  پست ها </a></li>
+                               <li><i class="fas fa-angle-double-right"></i> {{ post.title }} </li>
+                           </ul>
+                        {% endif %}
+                       </div>
+                   </div>
+               </div>
+       
+    <!-- ######## Page  Title End ####### -->
+         
+        <!--  ************************* Blog Content Start Here  ************************** -->
+            <div class="about-us">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <img src="{{ url_for('assets', path='/images/aboout.jpg') }}" alt="">
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <h2>{{ post.title }}</h2>
+                            <p> {{ post.description }} </p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        
+        <!-- ######## Blog End ####### -->

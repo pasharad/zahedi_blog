@@ -31,9 +31,18 @@ async def get_blogs_view(request: Request, db: Session = Depends(get_db)) -> dic
         )
 
 
-@api_router.get('/blogs/{blog_id}')
-async def get_blog_view(blog_id: int, db: Session = Depends(get_db)):
-    return managers.get_blog(db, blog_id)
+@api_router.get('/blogs/{blog_id}', name="single-blog")
+async def get_blog_view(request: Request, blog_id: int, db: Session = Depends(get_db)) -> dict:
+    blog_post =  managers.get_blog(db, blog_id)
+    print(blog_post)
+    path = "blog-post"
+    return TEMPLATES.TemplateResponse(
+        "blog_view.html", 
+        {"request":request,
+          "post":blog_post,
+          "path":path
+          }
+        )
 
 
 @api_router.get('/comments/{comment_id}')
