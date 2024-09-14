@@ -37,3 +37,26 @@
             </div>
         
         <!-- ######## Blog End ####### -->
+    <!-- ######## Footer Start ########-->
+    
+    <footer class="footer">
+        {% include 'footer.html' %}
+        
+
+    </footer>
+    <div class="copy">
+        {% include 'copy.html' %}
+
+    </div>
+
+</body>
+
+{{ url_for('assets', path='/js/script.js') }}
+<script src="{{ url_for('assets', path='/js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ url_for('assets', path='/js/popper.min.js') }}"></script>
+<script src="{{ url_for('assets', path='/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('assets', path='/plugins/scroll-fixed/jquery-scrolltofixed-min.js') }}"></script>
+<script src="{{ url_for('assets', path='/plugins/testimonial/js/owl.carousel.min.js') }}"></script>
+<script src="{{ url_for('assets', path='/js/script.js') }}"></script>
+
+</html>
